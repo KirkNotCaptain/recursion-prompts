@@ -7,31 +7,130 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+
+  if (n < 0) {
+    return null;
+  }
+
+  if (n === 0) {
+    return 1;
+  }
+
+  n *= factorial(n - 1);
+  return n;
+
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+
+  var total = 0;
+
+  if (array[0] === undefined) {
+    return 0;
+  }
+
+  total = array[0];
+  total += sum(array.slice(1));
+
+  return total;
+
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+
+  var total = 0;
+
+  if (!Array.isArray(array)) {
+    return array;
+  }
+
+  array.forEach(function(item) {
+    total += arraySum(item);
+  })
+
+  return total;
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+  var isNegative = false;
+
+  if (n < 0) {
+    isNegative = true;
+    n = Math.abs(n);
+  }
+
+  if (n === 0) {
+    return true;
+  }
+
+  if (n === 1) {
+    return false;
+  }
+
+  return isEven(n - 2);
+
+
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+
+  var isNegative = false;
+
+  if (n < 0) {
+    isNegative = true;
+    n = Math.abs(n)
+  }
+
+  var total = n - 1;
+
+  if (total < 0) {
+    return 0;
+  }
+
+  total += sumBelow(n - 1);
+
+  if (isNegative) {
+    return total * -1;
+  }
+  return total;
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  if (y < x) {
+    var result = [];
+
+    if (x === y || Math.abs(x - y) === 1) {
+      return [];
+    }
+
+    result = [x - 1];
+    result = result.concat(range(x - 1, y));
+    return result;
+
+    } else {
+      var result = [];
+
+      if (x === y || Math.abs(x - y) === 1) {
+        return [];
+      }
+
+      result = [x + 1];
+      result = result.concat(range(x + 1, y));
+      return result;
+    }
+
+
+
 };
 
 // 7. Compute the exponent of a number.
